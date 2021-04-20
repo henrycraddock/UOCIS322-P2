@@ -1,8 +1,8 @@
 """
-John Doe's Flask API.
+Henry Craddock's Flask API.
 """
 
-from flask import Flask
+from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
