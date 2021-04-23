@@ -2,13 +2,24 @@
 Henry Craddock's Flask API.
 """
 
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, abort, send_from_directory
+import os
+import config
+
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "UOCIS docker demo!\n"
+@app.route("/<file_name>")
+def hello(file_name):
+     options = config.configuration()
+     docroot = options.DOCROOT
+     pages = os.listdir(docroot)
+     if "//" in file_name or "~" in file_name or ".." in file_name:
+         abort(403)
+     elif file_name in pages:
+         return send_from_directory(docroot, file_name)
+     else:
+         abort(404)
 
 
 @app.errorhandler(404)
