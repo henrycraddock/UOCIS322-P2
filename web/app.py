@@ -9,7 +9,7 @@ import config
 
 app = Flask(__name__)
 
-@app.route("/<file_name>")
+@app.route("/<path:file_name>")
 def hello(file_name):
      options = config.configuration()
      docroot = options.DOCROOT
